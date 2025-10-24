@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>طمِني - Chatbot</title>
+<style>
+body {
+  font-family: Cairo, sans-serif;
+  background-color: #F2F3F0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  background-color: #7CAAA2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 5%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.navbar .logo { color: #fff; font-size: 1.6rem; font-weight: bold; }
+
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  width: 90%;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.chat-header {
+  background-color: #4E6B68;
+  color: #fff;
+  padding: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+}
+
+.user { background-color: #7CAAA2; color: #fff; align-self: flex-end; }
+.bot { background-color: #E7F1EF; color: #2E3A3D; align-self: flex-start; }
+
+.chat-input {
+  display: flex;
+  padding: 12px;
+  gap: 8px;
+  background-color: #f0f0f0;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.chat-input button {
+  padding: 8px 16px;
+  background-color: #7CAAA2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.chat-input button:hover { background-color: #90B7B0; }
+
+/* اسم البوت */
+#bot-name-input {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  background-color: #E7F1EF;
+  flex-wrap: wrap;
+}
+#bot-name-input input {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  flex: 1 1 150px;
+}
+#bot-name-input button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: #4E6B68;
+  color: #fff;
+  cursor: pointer;
+}
+#bot-name-input button:hover { background-color: #7CAAA2; }
+
+/* ----- Responsive ----- */
+@media (max-width: 768px) {
+  .chat-container {
+    width: 95%;
+    margin: 10px auto;
+  }
+  .chat-input input, #bot-name-input input {
+    font-size: 0.9rem;
+  }
+  .chat-header {
+    font-size: 1rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">طمِني</div>
+</header>
+
+<div class="chat-container">
+  <div class="chat-header">فضفضة آمنة</div>
+
+  <!-- اختيار اسم البوت -->
+  <div id="bot-name-input">
+    <input type="text" id="botName" placeholder="اكتب اسم البوت اللي تحبه">
+    <button onclick="setBotName()">اختيار الاسم</button>
+  </div>
+
+  <div class="chat-messages" id="chatMessages"></div>
+
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="اكتب رسالتك هنا..." onkeydown="if(event.key==='Enter'){sendMessage();}">
+    <button onclick="sendMessage()">إرسال</button>
+  </div>
+</div>
+
+<script>
+let botName = "طمِني"; // الاسم الافتراضي
+
+function setBotName() {
+  const input = document.getElementById('botName').value.trim();
+  if(input) {
+    botName = input;
+    document.getElementById('bot-name-input').style.display = 'none';
+    addBotMessage(`أنا ${botName}، هنا عشان أسمعك وأطمنك ❤️`);
+  }
+}
+
+function addMessage(text, sender) {
+  const chatMessages = document.getElementById('chatMessages');
+  const msgDiv = document.createElement('div');
+  msgDiv.classList.add('message', sender);
+  msgDiv.textContent = text;
+  chatMessages.appendChild(msgDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function addBotMessage(text) {
+  addMessage(text, 'bot');
+}
+
+function sendMessage() {
+  const userInput = document.getElementById('userInput');
+  const text = userInput.value.trim();
+  if(!text) return;
+  addMessage(text, 'user');
+  userInput.value = '';
+
+  // استجابة بسيطة للبوت (هتتطوّر بعدين)
+  setTimeout(() => {
+    let reply = "أنا هنا أسمعك ❤️";
+    if(text.includes("حزين") || text.includes("زعلان")) {
+      reply = "حسيت إنك زعلان، ممكن تحكيلي أكتر؟";
+    } else if(text.includes("وحيد") || text.includes("الوحدة")) {
+      reply = "الوحدة صعبة فعلاً، أنا موجود هنا ليك";
+    } else if(text.includes("امتحان") || text.includes("فشل")) {
+      reply = "امتحانات صعبة أوي، حاول تفكر إيه الخطوة الجاية بدل ما تركز على الغلط";
+    }
+    addBotMessage(`${botName}: ${reply}`);
+  }, 800);
+}
+</script>
+<div class="mood-canvas-container">
+  <h2>ارسم مشاعرك 🎨</h2>
+  
+  <!-- أدوات الرسم -->
+  <div class="tools" style="margin-bottom:10px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+    <button class="color-btn" data-color="#4E6B68" style="background:#4E6B68;"></button>
+    <button class="color-btn" data-color="#7CAAA2" style="background:#7CAAA2;"></button>
+    <button class="color-btn" data-color="#90B7B0" style="background:#90B7B0;"></button>
+    <button class="color-btn" data-color="#F9A826" style="background:#F9A826;"></button>
+    <button class="color-btn" data-color="#D94F4F" style="background:#D94F4F;"></button>
+    <button id="eraser">مسح</button>
+    <button id="clearCanvas">مسح الكل</button>
+  </div>
+
+  <canvas id="moodCanvas" width="500" height="400" style="border:1px solid #ccc; border-radius:8px;"></canvas>
+
+  <div style="margin-top:10px;">
+    <button id="analyzeCanvas">حلل مشاعرك</button>
+  </div>
+
+  <div id="canvasAnalysis" style="margin-top:10px; min-height:40px; font-weight:bold;"></div>
+</div>
+
+<style>
+.mood-canvas-container { max-width:600px; width:90%; margin:20px auto; background:#fff; padding:16px; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.1); text-align:center;}
+.mood-canvas-container button { padding:8px 16px; border-radius:8px; border:none; cursor:pointer; transition:0.3s; }
+.mood-canvas-container button:hover { opacity:0.8; }
+.color-btn { width:30px; height:30px; border-radius:50%; border:2px solid #fff; }
+#eraser { background:#ccc; color:#333; }
+#analyzeCanvas { background:#7CAAA2; color:#fff; margin-top:10px; }
+#analyzeCanvas:hover { background:#90B7B0; }
+@media (max-width:768px){.mood-canvas-container canvas{width:100%;height:auto;}}
+</style>
+
+<script>
+const canvas = document.getElementById('moodCanvas');
+const ctx = canvas.getContext('2d');
+let painting = false;
+let currentColor = '#4E6B68';
+let erasing = false;
+
+function startPosition(e){ painting=true; draw(e); }
+function endPosition(){ painting=false; ctx.beginPath(); }
+function draw(e){
+  if(!painting) return;
+  const rect = canvas.getBoundingClientRect();
+  ctx.lineWidth = erasing ? 20 : 4;
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = erasing ? '#fff' : currentColor;
+  ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+}
+canvas.addEventListener('mousedown', startPosition);
+canvas.addEventListener('mouseup', endPosition);
+canvas.addEventListener('mousemove', draw);
+
+// اختيار اللون
+document.querySelectorAll('.color-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentColor = btn.getAttribute('data-color');
+    erasing = false;
+  });
+});
+
+// مسح بالاستيكه
+document.getElementById('eraser').addEventListener('click', () => {
+  erasing = true;
+});
+
+// مسح الكل
+document.getElementById('clearCanvas').addEventListener('click', () => {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  document.getElementById('canvasAnalysis').innerText='';
+});
+
+// تحليل وهمي
+document.getElementById('analyzeCanvas').addEventListener('click', () => {
+  const messages = [
+    'حاسس إنك محتاج تهدي شوية، خذ نفس عميق 🌿',
+    'رسمك بيعكس طاقة إيجابية حلوة ✨',
+    'ممكن تكون مضغوط اليومين دول، حاول تهتم بنفسك 💛',
+    'الوضع طبيعي، كلنا بنمر بمشاعر متلخبطة 😌'
+  ];
+  const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+  document.getElementById('canvasAnalysis').innerText = randomMsg;
+});
+</script>
+
+
+</body>
+</html>
