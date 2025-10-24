@@ -8,7 +8,129 @@
 <body>
 
 <style>
-/* انسخ كل CSS من index.html الخاص بالـ navbar */
+/* ---------- إعدادات عامة ---------- */
+body {
+  font-family: "Cairo", sans-serif;
+  background-color: #F2F3F0; /* رمادي ناعم */
+  color: #2E3A3D;
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+  text-align: center;
+  line-height: 1.8;
+}
+
+
+
+/* ---------- محتوى الصفحة ---------- */
+.page {
+  max-width: 650px;
+  margin: 40px auto;
+  background-color: #F9F9F9;
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+
+.page h1 {
+  color: #4E6B68;
+  margin-bottom: 12px;
+}
+
+.page p {
+  color: #444;
+  font-size: 1rem;
+  margin-bottom: 25px;
+}
+
+/* ---------- صندوق الكتابة ---------- */
+textarea {
+  width: 100%;
+  border: 2px solid #90B7B0;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  background-color: #F7F9F8;
+  color: #2E3A3D;
+  transition: 0.3s;
+}
+
+textarea:focus {
+  border-color: #7CAAA2;
+  background-color: #EEF2F1;
+}
+
+/* ---------- زر النشر ---------- */
+button {
+  background-color: #7CAAA2;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #90B7B0;
+}
+
+/* ---------- المنشورات ---------- */
+#posts {
+  margin-top: 30px;
+  text-align: right;
+}
+
+.card {
+  background-color: #F2F3F0;
+  border: 1px solid #D4EBE6;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  text-align: right;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.card p {
+  margin: 0;
+  color: #2E3A3D;
+  line-height: 1.6;
+}
+
+.card small {
+  display: block;
+  color: #666;
+  margin-top: 8px;
+  font-size: 0.8rem;
+}
+
+/* ---------- زر العودة ---------- */
+.back-home {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #7CAAA2;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: 0.3s;
+  margin-bottom: 20px;
+}
+
+.back-home:hover {
+  background-color: #90B7B0;
+  color: #fff;
+}
 body { margin:0; font-family:Cairo,sans-serif; background-color:#F2F3F0; color:#333; }
 .navbar { background-color:#7CAAA2; display:flex; justify-content:space-between; align-items:center; padding:12px 10%; box-shadow:0 2px 8px rgba(0,0,0,0.08); position:sticky; top:0; z-index:100; border-radius:0 0 16px 16px; }
 .logo { font-size:1.6rem; font-weight:bold; color:#F9F9F9; }
@@ -106,3 +228,4 @@ document.addEventListener('DOMContentLoaded', loadPosts);
 </body>
 
 </html>
+
