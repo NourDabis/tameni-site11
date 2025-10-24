@@ -11,7 +11,211 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>طمِني | متابعة المزاج</title>
 <style>
-/* انسخ كل CSS من index.html الخاص بالـ navbar */
+/* ---------------- إعدادات عامة ---------------- */
+body {
+  font-family: "Cairo", sans-serif;
+  background-color: #F2F3F0;
+  color: #2E3A3D;
+  margin: 0;
+  padding: 0;
+  line-height: 1.8;
+  direction: rtl;
+}
+
+/* ---------------- الشريط العلوي ---------------- */
+.navbar {
+  background-color: #7CAAA2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #F9F9F9;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.navbar a {
+  color: #F9F9F9;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s ease;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.navbar a:hover {
+  color: #D4EBE6;
+}
+
+.emergency-link {
+  background-color: #4E6B68;
+  color: #fff !important;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(78, 107, 104, 0.3);
+  transition: 0.3s ease;
+}
+
+.emergency-link:hover {
+  background-color: #90B7B0;
+}
+
+/* ---------------- المحتوى الرئيسي ---------------- */
+.page {
+  padding: 60px 10%;
+  background: linear-gradient(135deg, #F7F9F8 0%, #EEF2F1 100%);
+  min-height: 100vh;
+  text-align: center;
+}
+
+.page h1 {
+  color: #4E6B68;
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+}
+
+.page p {
+  color: #444;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+/* ---------------- أزرار المزاج ---------------- */
+#mood-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+#mood-buttons button {
+  background-color: #7CAAA2;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#mood-buttons button:hover {
+  background-color: #90B7B0;
+  transform: translateY(-2px);
+}
+
+#mood-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------------- مربع السبب ---------------- */
+#reason-container {
+  background-color: #F9F9F9;
+  border: 1px solid #D4EBE6;
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.8s ease;
+}
+
+#reason-container textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  resize: none;
+  font-family: "Cairo", sans-serif;
+  font-size: 1rem;
+  color: #2E3A3D;
+  background-color: #F7F9F8;
+  transition: border-color 0.3s;
+}
+
+#reason-container textarea:focus {
+  outline: none;
+  border-color: #7CAAA2;
+  box-shadow: 0 0 5px rgba(124, 170, 162, 0.4);
+}
+
+#reason-container button {
+  background-color: #7CAAA2;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  margin: 10px 5px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+#reason-container button:hover {
+  background-color: #90B7B0;
+}
+
+/* ---------------- الرسم البياني ---------------- */
+#chart-title {
+  color: #4E6B68;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* ---------------- الرسم البياني ---------------- */
+#chart-title {
+  color: #4E6B68;
+  font-size: 1.7rem;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+canvas {
+  width: 95% !important; /* يملأ تقريبًا كل العرض */
+  max-width: 1000px;     /* حد أقصى للعرض */
+  height: 500px !important; /* ارتفاع أكبر يوضح الخطوط */
+  margin: 0 auto 40px;
+  display: block;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 1s ease forwards;
+}
+
+
+/* ---------------- حركة الظهور ---------------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 body { margin:0; font-family:Cairo,sans-serif; background-color:#F2F3F0; color:#333; }
 .navbar { background-color:#7CAAA2; display:flex; justify-content:space-between; align-items:center; padding:12px 10%; box-shadow:0 2px 8px rgba(0,0,0,0.08); position:sticky; top:0; z-index:100; border-radius:0 0 16px 16px; }
 .logo { font-size:1.6rem; font-weight:bold; color:#F9F9F9; }
@@ -245,3 +449,4 @@ window.addEventListener('DOMContentLoaded', () => {
 </body>
 
 </html>
+
